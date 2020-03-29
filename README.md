@@ -40,7 +40,7 @@ Night Shift is a Windows Forms executable, written in Visual Basic.  The applica
 
 Installation:  
 
-Download the "publish" directory.  Run "setup.exe".  Upon completion, an application icon will have been added to the start menu under the category "TXTToolkit" with the name "Night Shift".  This application can be pinned to the Start Menu if desired.
+Download DarksKnight.zip in the "publish" directory.  Unzip and run "setup.exe".  Upon completion, an application icon will have been added to the start menu under the category "TXTToolkit" with the name "Night Shift".  This application can be pinned to the Start Menu if desired.
 
 Support:  
 
