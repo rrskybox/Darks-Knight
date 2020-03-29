@@ -52,12 +52,13 @@ Partial Class DarksKnightForm
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.TreeBox = New System.Windows.Forms.GroupBox()
+        Me.OtherDirRadioButton = New System.Windows.Forms.RadioButton()
         Me.SaveTSXCheckBox = New System.Windows.Forms.RadioButton()
         Me.SavePreStackCheckBox = New System.Windows.Forms.RadioButton()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.BiasCount = New System.Windows.Forms.NumericUpDown()
         Me.StatusBox = New System.Windows.Forms.TextBox()
-        Me.DDriveRadioButton = New System.Windows.Forms.RadioButton()
+        Me.DestinationFolderDialog = New System.Windows.Forms.FolderBrowserDialog()
         CType(Me.CCDTempBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.DarksCountBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.OtherExposureBox, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -72,7 +73,7 @@ Partial Class DarksKnightForm
         '
         'CloseButton
         '
-        Me.CloseButton.Location = New System.Drawing.Point(265, 463)
+        Me.CloseButton.Location = New System.Drawing.Point(265, 474)
         Me.CloseButton.Name = "CloseButton"
         Me.CloseButton.Size = New System.Drawing.Size(84, 32)
         Me.CloseButton.TabIndex = 0
@@ -81,7 +82,7 @@ Partial Class DarksKnightForm
         '
         'AbortButton
         '
-        Me.AbortButton.Location = New System.Drawing.Point(145, 463)
+        Me.AbortButton.Location = New System.Drawing.Point(145, 474)
         Me.AbortButton.Name = "AbortButton"
         Me.AbortButton.Size = New System.Drawing.Size(84, 32)
         Me.AbortButton.TabIndex = 1
@@ -90,7 +91,7 @@ Partial Class DarksKnightForm
         '
         'StartButton
         '
-        Me.StartButton.Location = New System.Drawing.Point(11, 463)
+        Me.StartButton.Location = New System.Drawing.Point(11, 474)
         Me.StartButton.Name = "StartButton"
         Me.StartButton.Size = New System.Drawing.Size(84, 32)
         Me.StartButton.TabIndex = 2
@@ -154,7 +155,7 @@ Partial Class DarksKnightForm
         'Check60
         '
         Me.Check60.AutoSize = True
-        Me.Check60.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check60.ForeColor = System.Drawing.Color.White
         Me.Check60.Location = New System.Drawing.Point(21, 22)
         Me.Check60.Name = "Check60"
         Me.Check60.Size = New System.Drawing.Size(60, 17)
@@ -165,7 +166,7 @@ Partial Class DarksKnightForm
         'Check90
         '
         Me.Check90.AutoSize = True
-        Me.Check90.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check90.ForeColor = System.Drawing.Color.White
         Me.Check90.Location = New System.Drawing.Point(21, 43)
         Me.Check90.Name = "Check90"
         Me.Check90.Size = New System.Drawing.Size(60, 17)
@@ -176,7 +177,7 @@ Partial Class DarksKnightForm
         'Check120
         '
         Me.Check120.AutoSize = True
-        Me.Check120.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check120.ForeColor = System.Drawing.Color.White
         Me.Check120.Location = New System.Drawing.Point(21, 64)
         Me.Check120.Name = "Check120"
         Me.Check120.Size = New System.Drawing.Size(66, 17)
@@ -187,7 +188,7 @@ Partial Class DarksKnightForm
         'Check180
         '
         Me.Check180.AutoSize = True
-        Me.Check180.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check180.ForeColor = System.Drawing.Color.White
         Me.Check180.Location = New System.Drawing.Point(21, 85)
         Me.Check180.Name = "Check180"
         Me.Check180.Size = New System.Drawing.Size(66, 17)
@@ -198,7 +199,7 @@ Partial Class DarksKnightForm
         'Check240
         '
         Me.Check240.AutoSize = True
-        Me.Check240.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check240.ForeColor = System.Drawing.Color.White
         Me.Check240.Location = New System.Drawing.Point(21, 106)
         Me.Check240.Name = "Check240"
         Me.Check240.Size = New System.Drawing.Size(66, 17)
@@ -209,7 +210,7 @@ Partial Class DarksKnightForm
         'Check300
         '
         Me.Check300.AutoSize = True
-        Me.Check300.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check300.ForeColor = System.Drawing.Color.White
         Me.Check300.Location = New System.Drawing.Point(21, 127)
         Me.Check300.Name = "Check300"
         Me.Check300.Size = New System.Drawing.Size(66, 17)
@@ -220,7 +221,7 @@ Partial Class DarksKnightForm
         'Check360
         '
         Me.Check360.AutoSize = True
-        Me.Check360.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check360.ForeColor = System.Drawing.Color.White
         Me.Check360.Location = New System.Drawing.Point(21, 148)
         Me.Check360.Name = "Check360"
         Me.Check360.Size = New System.Drawing.Size(66, 17)
@@ -231,7 +232,7 @@ Partial Class DarksKnightForm
         'Check420
         '
         Me.Check420.AutoSize = True
-        Me.Check420.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check420.ForeColor = System.Drawing.Color.White
         Me.Check420.Location = New System.Drawing.Point(21, 169)
         Me.Check420.Name = "Check420"
         Me.Check420.Size = New System.Drawing.Size(66, 17)
@@ -242,7 +243,7 @@ Partial Class DarksKnightForm
         'Check480
         '
         Me.Check480.AutoSize = True
-        Me.Check480.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check480.ForeColor = System.Drawing.Color.White
         Me.Check480.Location = New System.Drawing.Point(21, 190)
         Me.Check480.Name = "Check480"
         Me.Check480.Size = New System.Drawing.Size(66, 17)
@@ -253,7 +254,7 @@ Partial Class DarksKnightForm
         'Check960
         '
         Me.Check960.AutoSize = True
-        Me.Check960.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check960.ForeColor = System.Drawing.Color.White
         Me.Check960.Location = New System.Drawing.Point(21, 253)
         Me.Check960.Name = "Check960"
         Me.Check960.Size = New System.Drawing.Size(66, 17)
@@ -264,7 +265,7 @@ Partial Class DarksKnightForm
         'Check600
         '
         Me.Check600.AutoSize = True
-        Me.Check600.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check600.ForeColor = System.Drawing.Color.White
         Me.Check600.Location = New System.Drawing.Point(21, 232)
         Me.Check600.Name = "Check600"
         Me.Check600.Size = New System.Drawing.Size(66, 17)
@@ -275,7 +276,7 @@ Partial Class DarksKnightForm
         'Check540
         '
         Me.Check540.AutoSize = True
-        Me.Check540.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check540.ForeColor = System.Drawing.Color.White
         Me.Check540.Location = New System.Drawing.Point(21, 211)
         Me.Check540.Name = "Check540"
         Me.Check540.Size = New System.Drawing.Size(66, 17)
@@ -286,7 +287,7 @@ Partial Class DarksKnightForm
         'Check1800
         '
         Me.Check1800.AutoSize = True
-        Me.Check1800.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check1800.ForeColor = System.Drawing.Color.White
         Me.Check1800.Location = New System.Drawing.Point(21, 295)
         Me.Check1800.Name = "Check1800"
         Me.Check1800.Size = New System.Drawing.Size(72, 17)
@@ -297,7 +298,7 @@ Partial Class DarksKnightForm
         'Check1200
         '
         Me.Check1200.AutoSize = True
-        Me.Check1200.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Check1200.ForeColor = System.Drawing.Color.White
         Me.Check1200.Location = New System.Drawing.Point(21, 274)
         Me.Check1200.Name = "Check1200"
         Me.Check1200.Size = New System.Drawing.Size(72, 17)
@@ -316,7 +317,7 @@ Partial Class DarksKnightForm
         'CheckOther
         '
         Me.CheckOther.AutoSize = True
-        Me.CheckOther.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.CheckOther.ForeColor = System.Drawing.Color.White
         Me.CheckOther.Location = New System.Drawing.Point(21, 318)
         Me.CheckOther.Name = "CheckOther"
         Me.CheckOther.Size = New System.Drawing.Size(74, 17)
@@ -339,7 +340,7 @@ Partial Class DarksKnightForm
         Me.BinningsBox.Controls.Add(Me.CheckBox3x3)
         Me.BinningsBox.Controls.Add(Me.CheckBox2x2)
         Me.BinningsBox.Controls.Add(Me.CheckBox1x1)
-        Me.BinningsBox.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.BinningsBox.ForeColor = System.Drawing.Color.White
         Me.BinningsBox.Location = New System.Drawing.Point(206, 71)
         Me.BinningsBox.Name = "BinningsBox"
         Me.BinningsBox.Size = New System.Drawing.Size(142, 125)
@@ -350,7 +351,7 @@ Partial Class DarksKnightForm
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.CCDTempBox)
-        Me.GroupBox1.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.GroupBox1.ForeColor = System.Drawing.Color.White
         Me.GroupBox1.Location = New System.Drawing.Point(207, 20)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(142, 48)
@@ -361,7 +362,7 @@ Partial Class DarksKnightForm
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.DarksCountBox)
-        Me.GroupBox2.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.GroupBox2.ForeColor = System.Drawing.Color.White
         Me.GroupBox2.Location = New System.Drawing.Point(206, 199)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(142, 44)
@@ -387,7 +388,7 @@ Partial Class DarksKnightForm
         Me.GroupBox3.Controls.Add(Me.Check420)
         Me.GroupBox3.Controls.Add(Me.Check960)
         Me.GroupBox3.Controls.Add(Me.Check480)
-        Me.GroupBox3.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.GroupBox3.ForeColor = System.Drawing.Color.White
         Me.GroupBox3.Location = New System.Drawing.Point(10, 20)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(175, 366)
@@ -397,16 +398,27 @@ Partial Class DarksKnightForm
         '
         'TreeBox
         '
-        Me.TreeBox.Controls.Add(Me.DDriveRadioButton)
+        Me.TreeBox.Controls.Add(Me.OtherDirRadioButton)
         Me.TreeBox.Controls.Add(Me.SaveTSXCheckBox)
         Me.TreeBox.Controls.Add(Me.SavePreStackCheckBox)
-        Me.TreeBox.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.TreeBox.ForeColor = System.Drawing.Color.White
         Me.TreeBox.Location = New System.Drawing.Point(206, 293)
         Me.TreeBox.Name = "TreeBox"
         Me.TreeBox.Size = New System.Drawing.Size(142, 93)
         Me.TreeBox.TabIndex = 31
         Me.TreeBox.TabStop = False
         Me.TreeBox.Text = "Save Method"
+        '
+        'OtherDirRadioButton
+        '
+        Me.OtherDirRadioButton.AutoSize = True
+        Me.OtherDirRadioButton.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.OtherDirRadioButton.Location = New System.Drawing.Point(17, 65)
+        Me.OtherDirRadioButton.Name = "OtherDirRadioButton"
+        Me.OtherDirRadioButton.Size = New System.Drawing.Size(96, 17)
+        Me.OtherDirRadioButton.TabIndex = 2
+        Me.OtherDirRadioButton.Text = "Other Directory"
+        Me.OtherDirRadioButton.UseVisualStyleBackColor = True
         '
         'SaveTSXCheckBox
         '
@@ -435,7 +447,7 @@ Partial Class DarksKnightForm
         'GroupBox4
         '
         Me.GroupBox4.Controls.Add(Me.BiasCount)
-        Me.GroupBox4.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.GroupBox4.ForeColor = System.Drawing.Color.White
         Me.GroupBox4.Location = New System.Drawing.Point(207, 246)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(142, 44)
@@ -458,23 +470,12 @@ Partial Class DarksKnightForm
         Me.StatusBox.Size = New System.Drawing.Size(338, 55)
         Me.StatusBox.TabIndex = 32
         '
-        'DDriveRadioButton
-        '
-        Me.DDriveRadioButton.AutoSize = True
-        Me.DDriveRadioButton.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.DDriveRadioButton.Location = New System.Drawing.Point(17, 65)
-        Me.DDriveRadioButton.Name = "DDriveRadioButton"
-        Me.DDriveRadioButton.Size = New System.Drawing.Size(64, 17)
-        Me.DDriveRadioButton.TabIndex = 2
-        Me.DDriveRadioButton.Text = "D: Drive"
-        Me.DDriveRadioButton.UseVisualStyleBackColor = True
-        '
         'DarksKnightForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.SystemColors.HotTrack
-        Me.ClientSize = New System.Drawing.Size(364, 507)
+        Me.BackColor = System.Drawing.Color.LightSeaGreen
+        Me.ClientSize = New System.Drawing.Size(364, 524)
         Me.Controls.Add(Me.StatusBox)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.TreeBox)
@@ -539,5 +540,6 @@ Partial Class DarksKnightForm
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents BiasCount As System.Windows.Forms.NumericUpDown
     Friend WithEvents StatusBox As TextBox
-    Friend WithEvents DDriveRadioButton As RadioButton
+    Friend WithEvents OtherDirRadioButton As RadioButton
+    Friend WithEvents DestinationFolderDialog As FolderBrowserDialog
 End Class

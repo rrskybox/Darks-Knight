@@ -59,6 +59,10 @@
         settempstate = tsx_cc.TemperatureSetPoint()
         framestate = tsx_cc.Frame
         tsx_cc = Nothing
+        'Get folder path defaults set up, if necessary
+        If (My.Settings.DestinationDir = "") Then
+            My.Settings.DestinationDir = "C:\Users\" & System.Environment.UserName
+        End If
         Return
     End Sub
 
@@ -97,12 +101,12 @@
         If SaveTSXCheckBox.Checked Then
             UseAutoSave()
             SaveTSXCheckBox.ForeColor = Color.LightGreen
-        ElseIf (SavePreStackCheckBox.checked) Then
+        ElseIf (SavePreStackCheckBox.Checked) Then
             CalDB = New CalibrationFileManagement(True)
             SavePreStackCheckBox.ForeColor = Color.LightGreen
         Else
             CalDB = New CalibrationFileManagement(False)
-            DDriveRadioButton.ForeColor = Color.LightGreen
+            OtherDirRadioButton.ForeColor = Color.LightGreen
         End If
 
         SetCCDTemperature()
@@ -390,7 +394,19 @@
         tsx_cc.AutoSaveOn = 1
         Return
     End Sub
- 
-   
+
+    Private Sub DDriveRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles OtherDirRadioButton.CheckedChanged
+
+        If (OtherDirRadioButton.Checked) Then
+            If (DestinationFolderDialog().ShowDialog() = DialogResult.OK) Then
+                My.Settings.DestinationDir = DestinationFolderDialog().SelectedPath
+            End If
+        End If
+        Return
+    End Sub
+
+    Private Sub SavePreStackCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SavePreStackCheckBox.CheckedChanged
+
+    End Sub
 End Class
 

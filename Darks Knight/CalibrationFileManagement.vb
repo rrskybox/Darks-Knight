@@ -44,7 +44,7 @@
             DarkCalPath = DarkCalPath & UserDirectory
         Else
             'Set path for darks directory
-            DarkCalPath = "D:\PreStack"
+            DarkCalPath = My.Settings.DestinationDir + "\PreStack"
             'Set Calibration file path, creating necessary directories, as you go.
         End If
 
@@ -67,7 +67,7 @@
             'Set Calibration file path, creating necessary directories, as you go.
             BiasCalPath = BiasCalPath & UserDirectory
         Else
-            BiasCalPath = "D:\PreStack"
+            BiasCalPath = My.Settings.DestinationDir + "\PreStack"
         End If
 
         'Create the PreStack folder, if none exists
