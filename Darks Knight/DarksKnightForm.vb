@@ -45,7 +45,12 @@
         'Save the current camera state,
         'Then get the camera cooling and set up the file structure
         Dim tsx_cc = CreateObject("theskyx.ccdsoftcamera")
-        tsx_cc.Connect()
+
+        Try
+            tsx_cc.Connect()
+        Catch ex As Exception
+            MsgBox("No Camera Selected in TSX")
+        End Try
         'TSX camera simulator throws an exception on AutoSave so handle it
         Try
             autosavestate = tsx_cc.AutoSave()
