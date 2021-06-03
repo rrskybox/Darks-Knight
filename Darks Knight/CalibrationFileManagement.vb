@@ -97,7 +97,7 @@
         'Stores the current active TSX image as designated dark file
         'Step A:  attach the active image and generate folder and file name strings from the FITS information
         '  Three strings are needed:  one for exposure, one for the binning, one for temperature
-        Dim tsxaa = CreateObject("TheSkyX.ccdsoftImage")
+        Dim tsxaa = CreateObject("thesky64.ccdsoftImage")
         Dim attachresult = tsxaa.AttachToActive()
         LocalExpPath = Convert.ToString(tsxaa.FITSKeyword("EXPTIME"))
         LocalBinPath = Convert.ToString(tsxaa.FITSKeyword("XBINNING")) & "X" & Convert.ToString(tsxaa.FITSKeyword("YBINNING"))
@@ -131,7 +131,7 @@
         'Stores the current active TSX image as designated bias file
         'Step A:  attach the active image and generate folder and file name strings from the FITS information
         '  Two strings are needed:  one for one for the binning, one for temperature
-        Dim tsxaa = CreateObject("TheSkyX.ccdsoftImage")
+        Dim tsxaa = CreateObject("thesky64.ccdsoftImage")
         Dim attachresult = tsxaa.AttachToActive()
         LocalBinPath = Convert.ToString(tsxaa.FITSKeyword("XBINNING")) & "X" & Convert.ToString(tsxaa.FITSKeyword("YBINNING"))
         ImageCCDTemp = Convert.ToString(tsxaa.FITSKeyword("SET-TEMP"))

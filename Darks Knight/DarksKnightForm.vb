@@ -44,7 +44,7 @@
     Private Sub DarksKnightForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Save the current camera state,
         'Then get the camera cooling and set up the file structure
-        Dim tsx_cc = CreateObject("theskyx.ccdsoftcamera")
+        Dim tsx_cc = CreateObject("thesky64.ccdsoftcamera")
 
         Try
             tsx_cc.Connect()
@@ -72,7 +72,7 @@
     End Sub
 
     Private Sub CloseButton_Click(sender As Object, e As EventArgs) Handles CloseButton.Click
-        Dim tsx_cc = CreateObject("theskyx.ccdsoftcamera")
+        Dim tsx_cc = CreateObject("thesky64.ccdsoftcamera")
         'TSX camera simulator throws an exception on AutoSave so handle it
         Try
             tsx_cc.AutoSave() = autosavestate
@@ -146,7 +146,7 @@
 
     Private Sub SetBinning(binx As Integer, biny As Integer)
         'Method to set TSX CAO binning state
-        Dim tsx_cc = CreateObject("theskyx.ccdsoftcamera")
+        Dim tsx_cc = CreateObject("thesky64.ccdsoftcamera")
         tsx_cc.BinX = binx
         tsx_cc.BinY = biny
         tsx_cc = Nothing
@@ -190,7 +190,7 @@
         'Upon completion, store the image file in the library 
         '   Clean up mess and return
 
-        Dim tsx_cc = CreateObject("theskyx.ccdsoftcamera")
+        Dim tsx_cc = CreateObject("thesky64.ccdsoftcamera")
         'turn off TSX autosave if using the PreStack file management
         If SavePreStackCheckBox.Checked Then
             tsx_cc.autosaveon = 0
@@ -198,12 +198,12 @@
 
         tsx_cc.ExposureTime = exposure
         ' tsx_cc.ExposureTime = exposure
-        tsx_cc.Frame = TheSkyXLib.ccdsoftImageFrame.cdDark
+        tsx_cc.Frame = TheSky64Lib.ccdsoftImageFrame.cdDark
         tsx_cc.Delay = 0
         tsx_cc.Asynchronous = True
-        tsx_cc.ImageReduction = TheSkyXLib.ccdsoftImageReduction.cdNone
+        tsx_cc.ImageReduction = TheSky64Lib.ccdsoftImageReduction.cdNone
         tsx_cc.TakeImage()
-        Do While tsx_cc.state = TheSkyXLib.ccdsoftCameraState.cdStateTakePicture
+        Do While tsx_cc.state = TheSky64Lib.ccdsoftCameraState.cdStateTakePicture
             Application.DoEvents()
             If abortflag Then
                 tsx_cc.Abort()
@@ -259,7 +259,7 @@
         'Upon completion, store the image file in the library 
         '   Clean up mess and return
 
-        Dim tsx_cc = CreateObject("theskyx.ccdsoftcamera")
+        Dim tsx_cc = CreateObject("thesky64.ccdsoftcamera")
         'turn off TSX autosave if using the PreStack file management
         If SavePreStackCheckBox.Checked Then
             tsx_cc.autosaveon = 0
@@ -267,12 +267,12 @@
 
         tsx_cc.ExposureTime = exposure
         ' tsx_cc.ExposureTime = exposure
-        tsx_cc.Frame = TheSkyXLib.ccdsoftImageFrame.cdBias
+        tsx_cc.Frame = TheSky64Lib.ccdsoftImageFrame.cdBias
         tsx_cc.Delay = 0
         tsx_cc.Asynchronous = True
-        tsx_cc.ImageReduction = TheSkyXLib.ccdsoftImageReduction.cdNone
+        tsx_cc.ImageReduction = TheSky64Lib.ccdsoftImageReduction.cdNone
         tsx_cc.TakeImage()
-        Do While tsx_cc.state = TheSkyXLib.ccdsoftCameraState.cdStateTakePicture
+        Do While tsx_cc.state = TheSky64Lib.ccdsoftCameraState.cdStateTakePicture
             Application.DoEvents()
             If abortflag Then
                 tsx_cc.Abort()
@@ -292,7 +292,7 @@
 
     Private Sub SetCCDTemperature()
         'Set new temperature for camera and wait until the ccd gets to within 90% of that value
-        Dim tsx_cc = CreateObject("theskyx.ccdsoftcamera")
+        Dim tsx_cc = CreateObject("thesky64.ccdsoftcamera")
         Try
             tsx_cc.Connect()
         Catch ex As Exception
@@ -395,7 +395,7 @@
     End Sub
 
     Private Sub UseAutoSave()
-        Dim tsx_cc = CreateObject("TheSkyX.ccdsoftCamera")
+        Dim tsx_cc = CreateObject("thesky64.ccdsoftCamera")
         tsx_cc.AutoSaveOn = 1
         Return
     End Sub
