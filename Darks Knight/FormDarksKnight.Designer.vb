@@ -37,7 +37,7 @@ Partial Class FormDarksKnight
         Me.Check240 = New System.Windows.Forms.CheckBox()
         Me.Check300 = New System.Windows.Forms.CheckBox()
         Me.Check360 = New System.Windows.Forms.CheckBox()
-        Me.Check420 = New System.Windows.Forms.CheckBox()
+        Me.Check3 = New System.Windows.Forms.CheckBox()
         Me.Check480 = New System.Windows.Forms.CheckBox()
         Me.Check1 = New System.Windows.Forms.CheckBox()
         Me.Check600 = New System.Windows.Forms.CheckBox()
@@ -156,7 +156,7 @@ Partial Class FormDarksKnight
         '
         Me.Check60.AutoSize = True
         Me.Check60.ForeColor = System.Drawing.Color.White
-        Me.Check60.Location = New System.Drawing.Point(19, 83)
+        Me.Check60.Location = New System.Drawing.Point(19, 103)
         Me.Check60.Name = "Check60"
         Me.Check60.Size = New System.Drawing.Size(60, 17)
         Me.Check60.TabIndex = 9
@@ -167,7 +167,7 @@ Partial Class FormDarksKnight
         '
         Me.Check90.AutoSize = True
         Me.Check90.ForeColor = System.Drawing.Color.White
-        Me.Check90.Location = New System.Drawing.Point(19, 104)
+        Me.Check90.Location = New System.Drawing.Point(19, 124)
         Me.Check90.Name = "Check90"
         Me.Check90.Size = New System.Drawing.Size(60, 17)
         Me.Check90.TabIndex = 10
@@ -178,7 +178,7 @@ Partial Class FormDarksKnight
         '
         Me.Check120.AutoSize = True
         Me.Check120.ForeColor = System.Drawing.Color.White
-        Me.Check120.Location = New System.Drawing.Point(19, 125)
+        Me.Check120.Location = New System.Drawing.Point(19, 145)
         Me.Check120.Name = "Check120"
         Me.Check120.Size = New System.Drawing.Size(66, 17)
         Me.Check120.TabIndex = 11
@@ -189,7 +189,7 @@ Partial Class FormDarksKnight
         '
         Me.Check180.AutoSize = True
         Me.Check180.ForeColor = System.Drawing.Color.White
-        Me.Check180.Location = New System.Drawing.Point(19, 146)
+        Me.Check180.Location = New System.Drawing.Point(19, 166)
         Me.Check180.Name = "Check180"
         Me.Check180.Size = New System.Drawing.Size(66, 17)
         Me.Check180.TabIndex = 12
@@ -200,7 +200,7 @@ Partial Class FormDarksKnight
         '
         Me.Check240.AutoSize = True
         Me.Check240.ForeColor = System.Drawing.Color.White
-        Me.Check240.Location = New System.Drawing.Point(19, 167)
+        Me.Check240.Location = New System.Drawing.Point(19, 187)
         Me.Check240.Name = "Check240"
         Me.Check240.Size = New System.Drawing.Size(66, 17)
         Me.Check240.TabIndex = 13
@@ -211,7 +211,7 @@ Partial Class FormDarksKnight
         '
         Me.Check300.AutoSize = True
         Me.Check300.ForeColor = System.Drawing.Color.White
-        Me.Check300.Location = New System.Drawing.Point(19, 188)
+        Me.Check300.Location = New System.Drawing.Point(19, 208)
         Me.Check300.Name = "Check300"
         Me.Check300.Size = New System.Drawing.Size(66, 17)
         Me.Check300.TabIndex = 14
@@ -222,23 +222,23 @@ Partial Class FormDarksKnight
         '
         Me.Check360.AutoSize = True
         Me.Check360.ForeColor = System.Drawing.Color.White
-        Me.Check360.Location = New System.Drawing.Point(19, 209)
+        Me.Check360.Location = New System.Drawing.Point(19, 229)
         Me.Check360.Name = "Check360"
         Me.Check360.Size = New System.Drawing.Size(66, 17)
         Me.Check360.TabIndex = 15
         Me.Check360.Text = "360 Sec"
         Me.Check360.UseVisualStyleBackColor = True
         '
-        'Check420
+        'Check3
         '
-        Me.Check420.AutoSize = True
-        Me.Check420.ForeColor = System.Drawing.Color.White
-        Me.Check420.Location = New System.Drawing.Point(19, 230)
-        Me.Check420.Name = "Check420"
-        Me.Check420.Size = New System.Drawing.Size(66, 17)
-        Me.Check420.TabIndex = 16
-        Me.Check420.Text = "420 Sec"
-        Me.Check420.UseVisualStyleBackColor = True
+        Me.Check3.AutoSize = True
+        Me.Check3.ForeColor = System.Drawing.Color.White
+        Me.Check3.Location = New System.Drawing.Point(19, 41)
+        Me.Check3.Name = "Check3"
+        Me.Check3.Size = New System.Drawing.Size(54, 17)
+        Me.Check3.TabIndex = 16
+        Me.Check3.Text = "3 Sec"
+        Me.Check3.UseVisualStyleBackColor = True
         '
         'Check480
         '
@@ -288,7 +288,7 @@ Partial Class FormDarksKnight
         '
         Me.Check30.AutoSize = True
         Me.Check30.ForeColor = System.Drawing.Color.White
-        Me.Check30.Location = New System.Drawing.Point(19, 63)
+        Me.Check30.Location = New System.Drawing.Point(19, 83)
         Me.Check30.Name = "Check30"
         Me.Check30.Size = New System.Drawing.Size(60, 17)
         Me.Check30.TabIndex = 21
@@ -299,7 +299,7 @@ Partial Class FormDarksKnight
         '
         Me.Check10.AutoSize = True
         Me.Check10.ForeColor = System.Drawing.Color.White
-        Me.Check10.Location = New System.Drawing.Point(19, 42)
+        Me.Check10.Location = New System.Drawing.Point(19, 62)
         Me.Check10.Name = "Check10"
         Me.Check10.Size = New System.Drawing.Size(60, 17)
         Me.Check10.TabIndex = 22
@@ -385,7 +385,7 @@ Partial Class FormDarksKnight
         Me.GroupBox3.Controls.Add(Me.Check300)
         Me.GroupBox3.Controls.Add(Me.Check540)
         Me.GroupBox3.Controls.Add(Me.Check360)
-        Me.GroupBox3.Controls.Add(Me.Check420)
+        Me.GroupBox3.Controls.Add(Me.Check3)
         Me.GroupBox3.Controls.Add(Me.Check1)
         Me.GroupBox3.Controls.Add(Me.Check480)
         Me.GroupBox3.ForeColor = System.Drawing.Color.White
@@ -520,7 +520,7 @@ Partial Class FormDarksKnight
     Friend WithEvents Check240 As System.Windows.Forms.CheckBox
     Friend WithEvents Check300 As System.Windows.Forms.CheckBox
     Friend WithEvents Check360 As System.Windows.Forms.CheckBox
-    Friend WithEvents Check420 As System.Windows.Forms.CheckBox
+    Friend WithEvents Check3 As System.Windows.Forms.CheckBox
     Friend WithEvents Check480 As System.Windows.Forms.CheckBox
     Friend WithEvents Check1 As System.Windows.Forms.CheckBox
     Friend WithEvents Check600 As System.Windows.Forms.CheckBox

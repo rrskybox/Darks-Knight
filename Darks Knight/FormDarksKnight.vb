@@ -317,6 +317,11 @@
             RepeatDark(DarksCountBox.Value, 1)
             Check1.ForeColor = Color.LightGreen
         End If
+        If Check3.Checked Then
+            Check3.ForeColor = Color.Red
+            RepeatDark(DarksCountBox.Value, 3)
+            Check3.ForeColor = Color.LightGreen
+        End If
         If Check10.Checked Then
             Check10.ForeColor = Color.Red
             RepeatDark(DarksCountBox.Value, 10)
@@ -361,11 +366,6 @@
             Check360.ForeColor = Color.Red
             RepeatDark(DarksCountBox.Value, 360)
             Check360.ForeColor = Color.LightGreen
-        End If
-        If Check420.Checked Then
-            Check420.ForeColor = Color.Red
-            RepeatDark(DarksCountBox.Value, 420)
-            Check420.ForeColor = Color.LightGreen
         End If
         If Check480.Checked Then
             Check480.ForeColor = Color.Red
