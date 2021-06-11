@@ -85,7 +85,7 @@
 
         'Set date string for file folder
         LocalDatePath = DateTime.Today.ToString("ddMMMyyyy")
-        DarksKnightForm.StatusBox.Text += "Created PreStack Directory: ...\Prestack\" & LocalDatePath + vbCrLf
+        FormDarksKnight.StatusBox.Text += "Created PreStack Directory: ...\Prestack\" & LocalDatePath + vbCrLf
 
         'Set the sequence number
         SeqNum = 0
@@ -120,7 +120,7 @@
         'Tell TSX what the filepath is going to be
         Dim tsxPath = DarkCalPath & "\" & LocalBinPath & "\" & LocalExpPath & "\" & LocalDatePath & "\" & darkfilename & ".FITS"
         tsxaa.path = tsxPath
-        DarksKnightForm.StatusBox.Text += "Writing: " & tsxPath & vbCrLf
+        FormDarksKnight.StatusBox.Text += "Writing: " & tsxPath & vbCrLf
         Dim savestatus = tsxaa.save()
         'increment sequence number
         SeqNum += 1
@@ -153,7 +153,7 @@
         'Tell TSX what the filepath is going to be
         Dim tsxPath = BiasCalPath & "\" & LocalBinPath & "\" & LocalDatePath & "\" & biasfilename & ".FITS"
         tsxaa.path = tsxPath
-        DarksKnightForm.StatusBox.Text += "Writing: " & tsxPath & vbCrLf
+        FormDarksKnight.StatusBox.Text += "Writing: " & tsxPath & vbCrLf
         Dim savestatus = tsxaa.save()
         'increment sequence number
         SeqNum += 1

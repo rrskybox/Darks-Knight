@@ -7,7 +7,7 @@
     <framework targetVersion="4.8" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="Application Files\Darks Knight_1_5_0_21\Darks Knight.exe.manifest" size="3970">
+    <dependentAssembly dependencyType="install" codebase="Application Files\Darks Knight_1_5_0_20\Darks Knight.exe.manifest" size="3970">
       <assemblyIdentity name="Darks Knight.exe" version="1.5.0.20" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>

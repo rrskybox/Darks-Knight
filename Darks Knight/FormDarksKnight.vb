@@ -1,4 +1,4 @@
-﻿Public Class DarksKnightForm
+﻿Public Class FormDarksKnight
 
     'This application uses TSX CAO to take a series of dark frames for a dark frame library
     '
@@ -312,6 +312,21 @@
     End Sub
 
     Private Sub RunExposures()
+        If Check1.Checked Then
+            Check1.ForeColor = Color.Red
+            RepeatDark(DarksCountBox.Value, 1)
+            Check1.ForeColor = Color.LightGreen
+        End If
+        If Check10.Checked Then
+            Check10.ForeColor = Color.Red
+            RepeatDark(DarksCountBox.Value, 10)
+            Check10.ForeColor = Color.LightGreen
+        End If
+        If Check30.Checked Then
+            Check30.ForeColor = Color.Red
+            RepeatDark(DarksCountBox.Value, 30)
+            Check30.ForeColor = Color.LightGreen
+        End If
         If Check60.Checked Then
             Check60.ForeColor = Color.Red
             RepeatDark(DarksCountBox.Value, 60)
@@ -366,21 +381,6 @@
             Check600.ForeColor = Color.Red
             RepeatDark(DarksCountBox.Value, 600)
             Check600.ForeColor = Color.LightGreen
-        End If
-        If Check960.Checked Then
-            Check960.ForeColor = Color.Red
-            RepeatDark(DarksCountBox.Value, 960)
-            Check960.ForeColor = Color.LightGreen
-        End If
-        If Check1200.Checked Then
-            Check1200.ForeColor = Color.Red
-            RepeatDark(DarksCountBox.Value, 1200)
-            Check1200.ForeColor = Color.LightGreen
-        End If
-        If Check1800.Checked Then
-            Check1800.ForeColor = Color.Red
-            RepeatDark(DarksCountBox.Value, 1800)
-            Check1800.ForeColor = Color.LightGreen
         End If
         If CheckOther.Checked Then
             CheckOther.ForeColor = Color.Red
