@@ -305,6 +305,14 @@
             CCDTempBox.Value = tsx_cc.Temperature()
             System.Threading.Thread.Sleep(1000)
         Loop
+        'Wait one minute for the temperature to settle
+        'Blink the temperature number will waiting
+        For i As Integer = 1 To 30
+            CCDTempBox.ForeColor = Color.Yellow
+            System.Threading.Thread.Sleep(1000)
+            CCDTempBox.ForeColor = Color.Green
+            System.Threading.Thread.Sleep(1000)
+        Next
         CCDTempBox.Value = tsx_cc.TemperatureSetPoint()
         CCDTempBox.ForeColor = Color.LightGreen
         tsx_cc = Nothing
