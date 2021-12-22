@@ -97,11 +97,15 @@
         'Stores the current active TSX image as designated dark file
         'Step A:  attach the active image and generate folder and file name strings from the FITS information
         '  Three strings are needed:  one for exposure, one for the binning, one for temperature
-        Dim tsxaa = CreateObject("thesky64.ccdsoftImage")
-        Dim attachresult = tsxaa.AttachToActive()
-        LocalExpPath = Convert.ToString(tsxaa.FITSKeyword("EXPTIME"))
-        LocalBinPath = Convert.ToString(tsxaa.FITSKeyword("XBINNING")) & "X" & Convert.ToString(tsxaa.FITSKeyword("YBINNING"))
-        ImageCCDTemp = Convert.ToString(tsxaa.FITSKeyword("SET-TEMP"))
+#If (TSX_32) Then
+        Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
+#Else
+        Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
+#End If
+        Dim attachresult = tsx_cc.AttachToActive()
+        LocalExpPath = Convert.ToString(tsx_cc.FITSKeyword("EXPTIME"))
+        LocalBinPath = Convert.ToString(tsx_cc.FITSKeyword("XBINNING")) & "X" & Convert.ToString(tsx_cc.FITSKeyword("YBINNING"))
+        ImageCCDTemp = Convert.ToString(tsx_cc.FITSKeyword("SET-TEMP"))
         'Step B:  make sure the folder tree exists, create it if it doesn't
         Dim existresult = My.Computer.FileSystem.DirectoryExists(DarkCalPath & "\" & LocalBinPath)
         If Not existresult Then
@@ -119,9 +123,9 @@
         Dim darkfilename = "Dark." & "B" & LocalBinPath & ".E" & LocalExpPath & ".T" & ImageCCDTemp & "." & Str(SeqNum)
         'Tell TSX what the filepath is going to be
         Dim tsxPath = DarkCalPath & "\" & LocalBinPath & "\" & LocalExpPath & "\" & LocalDatePath & "\" & darkfilename & ".FITS"
-        tsxaa.path = tsxPath
+        tsx_cc.path = tsxPath
         FormDarksKnight.StatusBox.Text += "Writing: " & tsxPath & vbCrLf
-        Dim savestatus = tsxaa.save()
+        Dim savestatus = tsx_cc.save()
         'increment sequence number
         SeqNum += 1
         Return
@@ -131,10 +135,14 @@
         'Stores the current active TSX image as designated bias file
         'Step A:  attach the active image and generate folder and file name strings from the FITS information
         '  Two strings are needed:  one for one for the binning, one for temperature
-        Dim tsxaa = CreateObject("thesky64.ccdsoftImage")
-        Dim attachresult = tsxaa.AttachToActive()
-        LocalBinPath = Convert.ToString(tsxaa.FITSKeyword("XBINNING")) & "X" & Convert.ToString(tsxaa.FITSKeyword("YBINNING"))
-        ImageCCDTemp = Convert.ToString(tsxaa.FITSKeyword("SET-TEMP"))
+#If (TSX_32) Then
+        Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
+#Else
+        Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
+#End If
+        Dim attachresult = tsx_cc.AttachToActive()
+        LocalBinPath = Convert.ToString(tsx_cc.FITSKeyword("XBINNING")) & "X" & Convert.ToString(tsx_cc.FITSKeyword("YBINNING"))
+        ImageCCDTemp = Convert.ToString(tsx_cc.FITSKeyword("SET-TEMP"))
         'Step B:  make sure the folder tree exists, create it if it doesn't
         Dim existresult = My.Computer.FileSystem.DirectoryExists(BiasCalPath & "\" & LocalBinPath)
         If Not existresult Then
@@ -152,9 +160,9 @@
         Dim biasfilename = "Bias." & "B" & LocalBinPath & ".T" & ImageCCDTemp & "." & Str(SeqNum)
         'Tell TSX what the filepath is going to be
         Dim tsxPath = BiasCalPath & "\" & LocalBinPath & "\" & LocalDatePath & "\" & biasfilename & ".FITS"
-        tsxaa.path = tsxPath
+        tsx_cc.path = tsxPath
         FormDarksKnight.StatusBox.Text += "Writing: " & tsxPath & vbCrLf
-        Dim savestatus = tsxaa.save()
+        Dim savestatus = tsx_cc.save()
         'increment sequence number
         SeqNum += 1
         Return

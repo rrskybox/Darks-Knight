@@ -487,7 +487,7 @@ Partial Class FormDarksKnight
         Me.Controls.Add(Me.CloseButton)
         Me.Controls.Add(Me.GroupBox3)
         Me.Name = "FormDarksKnight"
-        Me.Text = "Darks Knight V1.4"
+        Me.Text = "Darks Knight"
         CType(Me.CCDTempBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.DarksCountBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.OtherExposureBox, System.ComponentModel.ISupportInitialize).EndInit()

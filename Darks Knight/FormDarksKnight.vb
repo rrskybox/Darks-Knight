@@ -1,6 +1,8 @@
-﻿Public Class FormDarksKnight
+﻿#Const TSX_32 = False
 
-    'This application uses TSX CAO to take a series of dark frames for a dark frame library
+Public Class FormDarksKnight
+
+    'This application uses TSX to take a series of dark frames for a dark frame library
     '
     'The RunDarks procedure launches TSX (if not already open), connects to the camera and
     '  sets up the temperature and autosave
@@ -9,7 +11,7 @@
     '  for an abort.  If aborted, the frame is aborted and the sequence ends.
     '
     'The dark files are stored in a folder tree.  The root is a folder in the user document folder
-    '  called "PreStack", which is used for other McAlister Miniapps.  Within this folder, a folder
+    '  called "PreStack", which is used for other TsxToolKit Miniapps.  Within this folder, a folder
     '  "Calibrations" is used (created if doesn't exist). Within this folder will be the darks library
     '  folder named "Darks" (created if doesn't exist).  
     '
@@ -42,9 +44,23 @@
     Public CalDB As Object
 
     Private Sub DarksKnightForm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        '
+        'Prep the form title
+        Try
+            My.Forms.FormDarksKnight.Text = System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
+        Catch
+            My.Forms.FormDarksKnight.Text = " in Debug"  'probably In debug, no version info available
+        End Try
+        MyBase.Text = "Darks Knight V " + My.Forms.FormDarksKnight.Text
+
         'Save the current camera state,
         'Then get the camera cooling and set up the file structure
-        Dim tsx_cc = CreateObject("thesky64.ccdsoftcamera")
+
+#If (TSX_32) Then
+        Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
+#Else
+        Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
+#End If
 
         Try
             tsx_cc.Connect()
@@ -65,6 +81,8 @@
         framestate = tsx_cc.Frame
         tsx_cc = Nothing
         'Get folder path defaults set up, if necessary
+        '           ssdir = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\" + ScanFolderName;
+
         If (My.Settings.DestinationDir = "") Then
             My.Settings.DestinationDir = "C:\Users\" & System.Environment.UserName
         End If
@@ -72,7 +90,11 @@
     End Sub
 
     Private Sub CloseButton_Click(sender As Object, e As EventArgs) Handles CloseButton.Click
-        Dim tsx_cc = CreateObject("thesky64.ccdsoftcamera")
+#If (TSX_32) Then
+        Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
+#Else
+        Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
+#End If
         'TSX camera simulator throws an exception on AutoSave so handle it
         Try
             tsx_cc.AutoSave() = autosavestate
@@ -146,7 +168,11 @@
 
     Private Sub SetBinning(binx As Integer, biny As Integer)
         'Method to set TSX CAO binning state
-        Dim tsx_cc = CreateObject("thesky64.ccdsoftcamera")
+#If (TSX_32) Then
+        Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
+#Else
+        Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
+#End If
         tsx_cc.BinX = binx
         tsx_cc.BinY = biny
         tsx_cc = Nothing
@@ -190,7 +216,12 @@
         'Upon completion, store the image file in the library 
         '   Clean up mess and return
 
-        Dim tsx_cc = CreateObject("thesky64.ccdsoftcamera")
+#If (TSX_32) Then
+        Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
+#Else
+        Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
+#End If
+
         'turn off TSX autosave if using the PreStack file management
         If SavePreStackCheckBox.Checked Then
             tsx_cc.autosaveon = 0
@@ -259,7 +290,12 @@
         'Upon completion, store the image file in the library 
         '   Clean up mess and return
 
-        Dim tsx_cc = CreateObject("thesky64.ccdsoftcamera")
+#If (TSX_32) Then
+        Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
+#Else
+        Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
+#End If
+
         'turn off TSX autosave if using the PreStack file management
         If SavePreStackCheckBox.Checked Then
             tsx_cc.autosaveon = 0
@@ -292,7 +328,11 @@
 
     Private Sub SetCCDTemperature()
         'Set new temperature for camera and wait until the ccd gets to within 90% of that value
-        Dim tsx_cc = CreateObject("thesky64.ccdsoftcamera")
+#If (TSX_32) Then
+        Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
+#Else
+        Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
+#End If
         Try
             tsx_cc.Connect()
         Catch ex As Exception
@@ -403,7 +443,11 @@
     End Sub
 
     Private Sub UseAutoSave()
-        Dim tsx_cc = CreateObject("thesky64.ccdsoftCamera")
+#If (TSX_32) Then
+        Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
+#Else
+        Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
+#End If
         tsx_cc.AutoSaveOn = 1
         Return
     End Sub
