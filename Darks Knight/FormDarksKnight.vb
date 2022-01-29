@@ -1,4 +1,4 @@
-﻿#Const TSX_32 = False
+﻿#Const TSX_32 = True
 
 Public Class FormDarksKnight
 
