@@ -56,7 +56,7 @@ Partial Class FormDarksKnight
         Me.SaveTSXCheckBox = New System.Windows.Forms.RadioButton()
         Me.SavePreStackCheckBox = New System.Windows.Forms.RadioButton()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.BiasCount = New System.Windows.Forms.NumericUpDown()
+        Me.BiasCountBox = New System.Windows.Forms.NumericUpDown()
         Me.StatusBox = New System.Windows.Forms.TextBox()
         Me.DestinationFolderDialog = New System.Windows.Forms.FolderBrowserDialog()
         CType(Me.CCDTempBox, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -68,7 +68,7 @@ Partial Class FormDarksKnight
         Me.GroupBox3.SuspendLayout()
         Me.TreeBox.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
-        CType(Me.BiasCount, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.BiasCountBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'CloseButton
@@ -446,7 +446,7 @@ Partial Class FormDarksKnight
         '
         'GroupBox4
         '
-        Me.GroupBox4.Controls.Add(Me.BiasCount)
+        Me.GroupBox4.Controls.Add(Me.BiasCountBox)
         Me.GroupBox4.ForeColor = System.Drawing.Color.White
         Me.GroupBox4.Location = New System.Drawing.Point(207, 246)
         Me.GroupBox4.Name = "GroupBox4"
@@ -455,19 +455,20 @@ Partial Class FormDarksKnight
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Number of Bias"
         '
-        'BiasCount
+        'BiasCountBox
         '
-        Me.BiasCount.Location = New System.Drawing.Point(49, 19)
-        Me.BiasCount.Name = "BiasCount"
-        Me.BiasCount.Size = New System.Drawing.Size(43, 20)
-        Me.BiasCount.TabIndex = 23
+        Me.BiasCountBox.Location = New System.Drawing.Point(49, 19)
+        Me.BiasCountBox.Name = "BiasCountBox"
+        Me.BiasCountBox.Size = New System.Drawing.Size(43, 20)
+        Me.BiasCountBox.TabIndex = 23
         '
         'StatusBox
         '
-        Me.StatusBox.Location = New System.Drawing.Point(11, 402)
+        Me.StatusBox.Location = New System.Drawing.Point(11, 392)
         Me.StatusBox.Multiline = True
         Me.StatusBox.Name = "StatusBox"
-        Me.StatusBox.Size = New System.Drawing.Size(338, 55)
+        Me.StatusBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.StatusBox.Size = New System.Drawing.Size(338, 76)
         Me.StatusBox.TabIndex = 32
         '
         'FormDarksKnight
@@ -500,7 +501,7 @@ Partial Class FormDarksKnight
         Me.TreeBox.ResumeLayout(False)
         Me.TreeBox.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
-        CType(Me.BiasCount, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.BiasCountBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -538,7 +539,7 @@ Partial Class FormDarksKnight
     Friend WithEvents SaveTSXCheckBox As System.Windows.Forms.RadioButton
     Friend WithEvents SavePreStackCheckBox As System.Windows.Forms.RadioButton
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
-    Friend WithEvents BiasCount As System.Windows.Forms.NumericUpDown
+    Friend WithEvents BiasCountBox As System.Windows.Forms.NumericUpDown
     Friend WithEvents StatusBox As TextBox
     Friend WithEvents OtherDirRadioButton As RadioButton
     Friend WithEvents DestinationFolderDialog As FolderBrowserDialog

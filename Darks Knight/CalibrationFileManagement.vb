@@ -1,25 +1,28 @@
-﻿Public Class CalibrationFileManagement
+﻿#Const TSX_32 = False
+
+Public Class CalibrationFileManagement
     'Class for managing the storage and retrieval (future) calibration files, including darks, flats and bias
     '
-    'The dark files are stored in a folder tree.  The root is a folder in the user document folder
-    '  called "PreStack", which I've used for other TSX miniapps.  Within this folder, the darks library
-    '  folder named "Darks" (created if doesn't exist).  
+    'The dark files are stored in a directory tree.  The root is a directory in the user document directory
+    '  called "PreStack", which I've used for other TSX miniapps.  Within this directory, the darks library
+    '  directory named "Darks" (created if doesn't exist).  
     '
     'The darks library is structured by duration (exposure), then binning (1x1, 2x2, etc), then date.
-    'This overall structure is created and/or verified upon launch.  The date folder associated with each
+    'This overall structure is created and/or verified upon launch.  The date directory associated with each
     '  selected checkbox is created or verified when that dark is created and stored.
     '
     'Individaul FITS filename is composed of a string "Dark"."B"<binning>."E"<exposure in sec>."T"<temperature in degrees celsius>.a sequence number
     'The file management functions are broken into three methods.  a New creation of this class verifies and/or creates the
-    '  base file tree structure down to the Darks folder, populating the public variable CalPath with that path.  
+    '  base file tree structure down to the Darks directory, populating the public variable CalPath with that path.  
     '  DarkFilePath() figures out the path to a target directory given the
     '  exposure, binning and date.  DarkFileStore() stores a file given the path and a filename.
 
-    Const UserDirectory = "\Documents\PreStack"
+    Const UserPreStackDirectory = "\Documents\PreStack"
     Const DarksDirectory = "\Darks"
     Const BiasDirectory = "\Bias"
 
     Private SeqNum As Integer
+    Private CalPath As String
     Private DarkCalPath As String
     Private BiasCalPath As String
     Private LocalBinPath As String
@@ -35,57 +38,41 @@
         cb4x4
     End Enum
 
-    Public Sub New(preStackFlag As Boolean)
+    Public Sub New(usePreStackDir As Boolean)
         Dim existresult As Boolean
-        If (preStackFlag) Then
-            'Set path for darks directory
-            DarkCalPath = "C:\Users\" & System.Environment.UserName
+        If (usePreStackDir) Then
             'Set Calibration file path, creating necessary directories, as you go.
-            DarkCalPath = DarkCalPath & UserDirectory
+            CalPath = "C:\Users\" & System.Environment.UserName & UserPreStackDirectory
         Else
             'Set path for darks directory
-            DarkCalPath = My.Settings.DestinationDir + "\PreStack"
+            CalPath = My.Settings.DestinationDir
             'Set Calibration file path, creating necessary directories, as you go.
         End If
+        'Create the base directory, if none exists
+        existresult = My.Computer.FileSystem.DirectoryExists(CalPath)
+        If Not existresult Then
+            My.Computer.FileSystem.CreateDirectory(CalPath)
+        End If
 
-        'Create the PreStack folder, if none exists
+        'Create the darks directory, if none exists
+        'Set the Darks base directory
+        DarkCalPath = CalPath + DarksDirectory
         existresult = My.Computer.FileSystem.DirectoryExists(DarkCalPath)
         If Not existresult Then
             My.Computer.FileSystem.CreateDirectory(DarkCalPath)
         End If
-        'Set the Darks base folder (assuming that flats and bias file structure will be added later
-        DarkCalPath = DarkCalPath & DarksDirectory
-        'Create the PreStack folder, if none exists
-        existresult = My.Computer.FileSystem.DirectoryExists(DarkCalPath)
-        If Not existresult Then
-            My.Computer.FileSystem.CreateDirectory(DarkCalPath)
-        End If
 
-        If (preStackFlag) Then
-            'Set path for bias directory
-            BiasCalPath = "C:\Users\" & System.Environment.UserName
-            'Set Calibration file path, creating necessary directories, as you go.
-            BiasCalPath = BiasCalPath & UserDirectory
-        Else
-            BiasCalPath = My.Settings.DestinationDir + "\PreStack"
-        End If
-
-        'Create the PreStack folder, if none exists
-        existresult = My.Computer.FileSystem.DirectoryExists(BiasCalPath)
-        If Not existresult Then
-            My.Computer.FileSystem.CreateDirectory(BiasCalPath)
-        End If
-        'Set the Bias base folder (assuming that flats and bias file structure will be added later
-        BiasCalPath = BiasCalPath & BiasDirectory
-        'Create the PreStack folder, if none exists
+        'Create the bias directory, if none exists
+        'Set the Bias base directory
+        BiasCalPath = CalPath + BiasDirectory
         existresult = My.Computer.FileSystem.DirectoryExists(BiasCalPath)
         If Not existresult Then
             My.Computer.FileSystem.CreateDirectory(BiasCalPath)
         End If
 
-        'Set date string for file folder
+        'Set date string for file directory
         LocalDatePath = DateTime.Today.ToString("ddMMMyyyy")
-        FormDarksKnight.StatusBox.Text += "Created PreStack Directory: ...\Prestack\" & LocalDatePath + vbCrLf
+        FormDarksKnight.StatusBox.Text += "Created Calibration Directory: " & LocalDatePath + vbCrLf
 
         'Set the sequence number
         SeqNum = 0
@@ -95,18 +82,18 @@
 
     Public Sub DarkImageStore()
         'Stores the current active TSX image as designated dark file
-        'Step A:  attach the active image and generate folder and file name strings from the FITS information
+        'Step A:  attach the active image and generate directory and file name strings from the FITS information
         '  Three strings are needed:  one for exposure, one for the binning, one for temperature
-#If (TSX_32) Then
-        Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
+#If TSX_32 Then
+        Dim tsxi = CreateObject("TheSkyX.ccdsoftImage")
 #Else
-        Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
+        Dim tsxi = CreateObject("TheSky64.ccdsoftImage")
 #End If
-        Dim attachresult = tsx_cc.AttachToActive()
-        LocalExpPath = Convert.ToString(tsx_cc.FITSKeyword("EXPTIME"))
-        LocalBinPath = Convert.ToString(tsx_cc.FITSKeyword("XBINNING")) & "X" & Convert.ToString(tsx_cc.FITSKeyword("YBINNING"))
-        ImageCCDTemp = Convert.ToString(tsx_cc.FITSKeyword("SET-TEMP"))
-        'Step B:  make sure the folder tree exists, create it if it doesn't
+        Dim attachresult = tsxi.AttachToActiveImager()
+        LocalExpPath = Convert.ToString(tsxi.FITSKeyword("EXPTIME"))
+        LocalBinPath = Convert.ToString(tsxi.FITSKeyword("XBINNING")) & "X" & Convert.ToString(tsxi.FITSKeyword("YBINNING"))
+        ImageCCDTemp = Convert.ToString(tsxi.FITSKeyword("SET-TEMP"))
+        'Step B:  make sure the directory tree exists, create it if it doesn't
         Dim existresult = My.Computer.FileSystem.DirectoryExists(DarkCalPath & "\" & LocalBinPath)
         If Not existresult Then
             My.Computer.FileSystem.CreateDirectory(DarkCalPath & "\" & LocalBinPath)
@@ -123,9 +110,10 @@
         Dim darkfilename = "Dark." & "B" & LocalBinPath & ".E" & LocalExpPath & ".T" & ImageCCDTemp & "." & Str(SeqNum)
         'Tell TSX what the filepath is going to be
         Dim tsxPath = DarkCalPath & "\" & LocalBinPath & "\" & LocalExpPath & "\" & LocalDatePath & "\" & darkfilename & ".FITS"
-        tsx_cc.path = tsxPath
-        FormDarksKnight.StatusBox.Text += "Writing: " & tsxPath & vbCrLf
-        Dim savestatus = tsx_cc.save()
+        tsxi.path = tsxPath
+        FormDarksKnight.StatusBox.AppendText("Writing: " & tsxPath & vbCrLf)
+        FormDarksKnight.Show()
+        Dim savestatus = tsxi.save()
         'increment sequence number
         SeqNum += 1
         Return
@@ -133,17 +121,17 @@
 
     Public Sub BiasImageStore()
         'Stores the current active TSX image as designated bias file
-        'Step A:  attach the active image and generate folder and file name strings from the FITS information
+        'Step A:  attach the active image and generate directory and file name strings from the FITS information
         '  Two strings are needed:  one for one for the binning, one for temperature
 #If (TSX_32) Then
-        Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
+        Dim tsxi = CreateObject("TheSkyX.ccdsoftImage")
 #Else
-        Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
+        Dim tsxi = CreateObject("TheSky64.ccdsoftImage")
 #End If
-        Dim attachresult = tsx_cc.AttachToActive()
-        LocalBinPath = Convert.ToString(tsx_cc.FITSKeyword("XBINNING")) & "X" & Convert.ToString(tsx_cc.FITSKeyword("YBINNING"))
-        ImageCCDTemp = Convert.ToString(tsx_cc.FITSKeyword("SET-TEMP"))
-        'Step B:  make sure the folder tree exists, create it if it doesn't
+        Dim attachresult = tsxi.AttachToActiveImager()
+        LocalBinPath = Convert.ToString(tsxi.FITSKeyword("XBINNING")) & "X" & Convert.ToString(tsxi.FITSKeyword("YBINNING"))
+        ImageCCDTemp = Convert.ToString(tsxi.FITSKeyword("SET-TEMP"))
+        'Step B:  make sure the directory tree exists, create it if it doesn't
         Dim existresult = My.Computer.FileSystem.DirectoryExists(BiasCalPath & "\" & LocalBinPath)
         If Not existresult Then
             My.Computer.FileSystem.CreateDirectory(BiasCalPath & "\" & LocalBinPath)
@@ -160,9 +148,9 @@
         Dim biasfilename = "Bias." & "B" & LocalBinPath & ".T" & ImageCCDTemp & "." & Str(SeqNum)
         'Tell TSX what the filepath is going to be
         Dim tsxPath = BiasCalPath & "\" & LocalBinPath & "\" & LocalDatePath & "\" & biasfilename & ".FITS"
-        tsx_cc.path = tsxPath
-        FormDarksKnight.StatusBox.Text += "Writing: " & tsxPath & vbCrLf
-        Dim savestatus = tsx_cc.save()
+        tsxi.path = tsxPath
+        FormDarksKnight.StatusBox.AppendText("Writing: " & tsxPath & vbCrLf)
+        Dim savestatus = tsxi.save()
         'increment sequence number
         SeqNum += 1
         Return

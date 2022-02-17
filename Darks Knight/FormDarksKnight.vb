@@ -1,4 +1,4 @@
-﻿#Const TSX_32 = True
+﻿#Const TSX_32 = False
 
 Public Class FormDarksKnight
 
@@ -31,6 +31,8 @@ Public Class FormDarksKnight
     '
     'Rev 3 -- Added the capability to shoot bias frames at the same temperature
     '
+    'Rev 4 -- Found and fixed a number of problems with using an "Other" directory, and fixed the conditional compile for TSX 32 and 64
+
     Public abortflag As Boolean = False
     Public totalreps As Integer
     Public autosavestate
@@ -56,7 +58,7 @@ Public Class FormDarksKnight
         'Save the current camera state,
         'Then get the camera cooling and set up the file structure
 
-#If (TSX_32) Then
+#If TSX_32 Then
         Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
 #Else
         Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
@@ -90,7 +92,7 @@ Public Class FormDarksKnight
     End Sub
 
     Private Sub CloseButton_Click(sender As Object, e As EventArgs) Handles CloseButton.Click
-#If (TSX_32) Then
+#If TSX_32 Then
         Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
 #Else
         Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
@@ -168,7 +170,7 @@ Public Class FormDarksKnight
 
     Private Sub SetBinning(binx As Integer, biny As Integer)
         'Method to set TSX CAO binning state
-#If (TSX_32) Then
+#If TSX_32 Then
         Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
 #Else
         Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
@@ -216,7 +218,7 @@ Public Class FormDarksKnight
         'Upon completion, store the image file in the library 
         '   Clean up mess and return
 
-#If (TSX_32) Then
+#If TSX_32 Then
         Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
 #Else
         Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
@@ -245,7 +247,7 @@ Public Class FormDarksKnight
         Loop
         'Save the using the PreStack manager if checked,
         '  Otherwise TSX will do what TSX does.
-        If SavePreStackCheckBox.Checked Then
+        If Not SaveTSXCheckBox.Checked Then
             CalDB.DarkImageStore()
         End If
         tsx_cc = Nothing
@@ -255,10 +257,10 @@ Public Class FormDarksKnight
     Private Sub RepeatBias(reps)
         'This is the repeat loop for a given exposure repetitions
         Const biasexposure = 0.001
-        totalreps = BiasCount.Value
+        totalreps = BiasCountBox.Value
         Dim i As Integer
         'Change the form count box color
-        BiasCount.ForeColor = Color.Red
+        BiasCountBox.ForeColor = Color.Red
         'Set the count on the form
         For i = (reps - 1) To 0 Step -1
             ImageBias(biasexposure)
@@ -266,11 +268,11 @@ Public Class FormDarksKnight
                 Return
             End If
             'Decrement count
-            BiasCount.Value -= 1
+            BiasCountBox.Value -= 1
         Next
-        DarksCountBox.Value = totalreps
+        BiasCountBox.Value = totalreps
         'Change the form count box color
-        DarksCountBox.ForeColor = Color.LightGreen
+        BiasCountBox.ForeColor = Color.LightGreen
         Return
     End Sub
 
@@ -290,7 +292,7 @@ Public Class FormDarksKnight
         'Upon completion, store the image file in the library 
         '   Clean up mess and return
 
-#If (TSX_32) Then
+#If TSX_32 Then
         Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
 #Else
         Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
@@ -319,7 +321,7 @@ Public Class FormDarksKnight
         Loop
         'Save the using the PreStack manager if checked,
         '  Otherwise TSX will do what TSX does.
-        If SavePreStackCheckBox.Checked Then
+        If Not SaveTSXCheckBox.Checked Then
             CalDB.BiasImageStore()
         End If
         tsx_cc = Nothing
@@ -328,7 +330,7 @@ Public Class FormDarksKnight
 
     Private Sub SetCCDTemperature()
         'Set new temperature for camera and wait until the ccd gets to within 90% of that value
-#If (TSX_32) Then
+#If TSX_32 Then
         Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
 #Else
         Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
@@ -338,6 +340,9 @@ Public Class FormDarksKnight
         Catch ex As Exception
             Return
         End Try
+        StatusBox.Text += "Cooling camera to " + CCDTempBox.Value.ToString("0") & vbCrLf
+        Show()
+
         tsx_cc.TemperatureSetPoint = Convert.ToDouble(CCDTempBox.Value)
         tsx_cc.RegulateTemperature = True
         Do While (tsx_cc.TemperatureSetPoint() * 0.9) < tsx_cc.Temperature()
@@ -347,7 +352,9 @@ Public Class FormDarksKnight
         Loop
         'Wait one minute for the temperature to settle
         'Blink the temperature number will waiting
-        For i As Integer = 1 To 30
+        StatusBox.Text += "At temperature. Waiting to settle down" & vbCrLf
+        Show()
+        For i As Integer = 1 To 2
             CCDTempBox.ForeColor = Color.Yellow
             System.Threading.Thread.Sleep(1000)
             CCDTempBox.ForeColor = Color.Green
@@ -435,15 +442,15 @@ Public Class FormDarksKnight
             RepeatDark(DarksCountBox.Value, Int(OtherExposureBox.Value))
             CheckOther.ForeColor = Color.LightGreen
         End If
-        If BiasCount.Value > 0 Then
-            RepeatBias(BiasCount.Value)
+        If BiasCountBox.Value > 0 Then
+            RepeatBias(BiasCountBox.Value)
         End If
 
         Return
     End Sub
 
     Private Sub UseAutoSave()
-#If (TSX_32) Then
+#If TSX_32 Then
         Dim tsx_cc = CreateObject("TheSkyX.ccdsoftcamera")
 #Else
         Dim tsx_cc = CreateObject("TheSky64.ccdsoftcamera")
@@ -462,8 +469,5 @@ Public Class FormDarksKnight
         Return
     End Sub
 
-    Private Sub SavePreStackCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SavePreStackCheckBox.CheckedChanged
-
-    End Sub
 End Class
 

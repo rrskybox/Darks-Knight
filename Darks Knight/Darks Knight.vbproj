@@ -27,8 +27,8 @@
     <ProductName>Darks Knight</ProductName>
     <PublisherName>TSXToolkit</PublisherName>
     <SuiteName>TSXToolkit</SuiteName>
-    <ApplicationRevision>34</ApplicationRevision>
-    <ApplicationVersion>1.6.0.%2a</ApplicationVersion>
+    <ApplicationRevision>37</ApplicationRevision>
+    <ApplicationVersion>1.7.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
