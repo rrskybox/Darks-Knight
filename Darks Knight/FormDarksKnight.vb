@@ -352,9 +352,9 @@ Public Class FormDarksKnight
         Loop
         'Wait one minute for the temperature to settle
         'Blink the temperature number will waiting
-        StatusBox.Text += "At temperature. Waiting to settle down" & vbCrLf
+        StatusBox.Text += "At temperature. Pausing for 1 minute to settle down" & vbCrLf
         Show()
-        For i As Integer = 1 To 2
+        For i As Integer = 1 To 30
             CCDTempBox.ForeColor = Color.Yellow
             System.Threading.Thread.Sleep(1000)
             CCDTempBox.ForeColor = Color.Green
