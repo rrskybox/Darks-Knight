@@ -345,7 +345,8 @@ Public Class FormDarksKnight
 
         tsx_cc.TemperatureSetPoint = Convert.ToDouble(CCDTempBox.Value)
         tsx_cc.RegulateTemperature = True
-        Do While (tsx_cc.TemperatureSetPoint() * 0.9) < tsx_cc.Temperature()
+        Dim near = Math.Abs(tsx_cc.TemperatureSetPoint() * 0.9)
+        Do While (Math.Abs(tsx_cc.Temperature() - tsx_cc.TemperatureSetPoint) > near)
             CCDTempBox.ForeColor = Color.Red
             CCDTempBox.Value = tsx_cc.Temperature()
             System.Threading.Thread.Sleep(1000)
